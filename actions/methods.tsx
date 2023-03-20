@@ -10,10 +10,7 @@ export const timeFromNow = (timestamp: number): string => dayjs(dayjs.unix(times
 export const decodeUrl = (imgUrl: string) => imgUrl.replace(/amp;/g, '');
 
 
-export const filter_posts = (data: PostType[] | undefined) => 
-    data?.filter((obj, index, self) => index === self.findIndex((t) => t.id === obj.id))
-
-export const format_replies = (reply: ReplyDataType | string): CommentType[] => {
+export const formatReplies = (reply: ReplyDataType | string): CommentType[] => {
     if (typeof reply === 'string') {
         return [];
     };
@@ -22,12 +19,12 @@ export const format_replies = (reply: ReplyDataType | string): CommentType[] => 
         .filter((e) => e.kind !== "more")
         .map(({ data }) => {
             const { author,  body, created: timestamp,  score, score_hidden, id,  author_fullname, collapsed,  replies } = data;
-            return { author,  body, timestamp,  score, score_hidden, id,  author_fullname, collapsed,  replies: format_replies(replies)};
+            return { author,  body, timestamp,  score, score_hidden, id,  author_fullname, collapsed,  replies: formatReplies(replies)};
         });
 };
 
 
-export const format_posts = (posts: DetailsDataType): PostType[] => {
+export const formatPosts = (posts: DetailsDataType): PostType[] => {
     return posts.data.children
     .map(({ data }) => {
         const { id, title, subreddit, author,  created: timestamp, permalink: url,  score,  num_comments: comments,  post_hint: type, preview, sr_detail } = data;  

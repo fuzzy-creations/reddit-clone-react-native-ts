@@ -1,22 +1,23 @@
-import { DataType, CommentType, PostType } from "../constants/types";
+import { PostDataType, CommentType, PostType } from "../constants/types";
 import { useQuery, useInfiniteQuery, UseInfiniteQueryResult, UseQueryResult } from "@tanstack/react-query";
 import { fetchComments, fetchPosts } from "./fetches";
 
 
-export const useGetPosts = (): UseInfiniteQueryResult<DataType, Error> => 
-    useInfiniteQuery<DataType, Error>({
+export const useGetPosts = (): UseInfiniteQueryResult<PostDataType, Error> => 
+    useInfiniteQuery<PostDataType, Error>({
       queryKey: ["posts", "infinite"], 
-      getNextPageParam: (prevData) => prevData.after,
-      queryFn: (pageParam) => fetchPosts(pageParam)
+      getNextPageParam: (prevData) => prevData.nextPageToken,
+      queryFn: (pageParam) => fetchPosts(pageParam), 
+      refetchOnMount: false,
+      refetchOnWindowFocus: false
     }); 
-  
+      
 
 export const useGetComments = (post: string[] | string): UseQueryResult<CommentType[], Error> => 
     useQuery<CommentType[], Error>({
         queryKey: ["comments"],
         queryFn: () => fetchComments(post),
     });
-
 
 
 export const useGetPost = (id?: string): PostType | null => {

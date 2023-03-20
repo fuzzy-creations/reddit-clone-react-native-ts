@@ -8,7 +8,6 @@ export { ErrorBoundary } from "expo-router";
 
 const client = new QueryClient();
 
-
 export default function RootLayout() {
     const [loaded, error] = useFonts({
         Varela: require('../assets/fonts/VarelaRound-Regular.ttf'),
@@ -30,9 +29,9 @@ export default function RootLayout() {
 function RootLayoutNav() {
     return (
         <QueryClientProvider client={client}>
-            <Stack screenOptions={{ contentStyle: {backgroundColor: colors.medium, paddingHorizontal: 10 }}}>
-                <Stack.Screen name="index" options={{title: '/r/all/hot'}} />
-                <Stack.Screen name="[...post]" options={{title: 'Post'}} />
+            <Stack screenOptions={{ contentStyle: { backgroundColor: colors.medium, paddingHorizontal: 10 } }}>
+                <Stack.Screen name="index" options={{ title: '/r/all/hot' }} />
+                <Stack.Screen name="[...post]" options={{ title: 'Post' }} />
             </Stack>
         </QueryClientProvider>
     );

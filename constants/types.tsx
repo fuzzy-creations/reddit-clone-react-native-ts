@@ -1,7 +1,7 @@
-export interface DataType { 
-    after: string, 
+export interface PostDataType { 
+    nextPageToken: string, 
     posts: PostType[]
-};;
+};
 
 export interface PostType {
     id: string,
@@ -29,7 +29,6 @@ export interface CommentType {
     collapsed: boolean, 
     replies: CommentType[] | null, 
 };
-
 
 
 export interface ReplyType {
@@ -75,3 +74,7 @@ export interface DetailsType {
         sr_detail?: any
     };
 };
+
+export interface QueryType {
+    query: string[] | string
+}
